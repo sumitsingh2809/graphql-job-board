@@ -10,43 +10,33 @@ import JobForm from './components/JobForm';
 import NavBar from './components/NavBar';
 
 function App() {
-  const navigate = useNavigate();
-  const [loggedIn, setLoggedIn] = useState(isLoggedIn);
+    const navigate = useNavigate();
+    const [loggedIn, setLoggedIn] = useState(isLoggedIn);
 
-  const handleLogin = () => {
-    setLoggedIn(true);
-    navigate('/');
-  };
+    const handleLogin = () => {
+        setLoggedIn(true);
+        navigate('/');
+    };
 
-  const handleLogout = () => {
-    setLoggedIn(false);
-    navigate('/');
-  };
+    const handleLogout = () => {
+        setLoggedIn(false);
+        navigate('/');
+    };
 
-  return (
-    <>
-      <NavBar loggedIn={loggedIn} onLogout={handleLogout} />
-      <main className="section">
-        <Routes>
-          <Route exact path="/"
-            element={<JobBoard />}
-          />
-          <Route path="/companies/:companyId"
-            element={<CompanyDetail />}
-          />
-          <Route exact path="/jobs/new"
-            element={<JobForm />}
-          />
-          <Route path="/jobs/:jobId"
-            element={<JobDetail />}
-          />
-          <Route exact path="/login"
-            element={<LoginForm onLogin={handleLogin} />}
-          />
-        </Routes>
-      </main>
-    </>
-  );
+    return (
+        <>
+            <NavBar loggedIn={loggedIn} onLogout={handleLogout} />
+            <main className="section">
+                <Routes>
+                    <Route exact path="/" element={<JobBoard />} />
+                    <Route path="/companies/:companyId" element={<CompanyDetail />} />
+                    <Route exact path="/jobs/new" element={<JobForm />} />
+                    <Route path="/jobs/:jobId" element={<JobDetail />} />
+                    <Route exact path="/login" element={<LoginForm onLogin={handleLogin} />} />
+                </Routes>
+            </main>
+        </>
+    );
 }
 
 export default App;
