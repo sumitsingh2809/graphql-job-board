@@ -79,3 +79,18 @@ export async function getJobs() {
     const { jobs } = await request(GRAPHQL_URL, query);
     return jobs;
 }
+
+export async function deleteJob(id) {
+    const query = gql`
+        mutation DeleteJobMutation($id: ID!) {
+            job: deleteJob(id: $id) {
+                id
+                title
+            }
+        }
+    `;
+
+    const variables = { id };
+    const { job } = await request(GRAPHQL_URL, query, variables);
+    return job;
+}

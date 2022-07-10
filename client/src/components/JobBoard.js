@@ -1,5 +1,5 @@
 import JobList from './JobList';
-import { getJobs } from '../graphql/queries';
+import { getJobs, deleteJob } from '../graphql/queries';
 import { useEffect, useState } from 'react';
 
 function JobBoard() {
@@ -12,13 +12,18 @@ function JobBoard() {
             .catch((err) => setError(true));
     }, []);
 
+    const deleteJobHandler = async (id) => {
+        await deleteJob(id);
+        setJobs(jobs.filter((job) => job.id !== id));
+    };
+
     if (error) {
         return <p>Sorry Something went wrong</p>;
     }
     return (
         <div>
             <h1 className="title">Job Board</h1>
-            <JobList jobs={jobs} />
+            <JobList jobs={jobs} deleteJob={deleteJobHandler} />
         </div>
     );
 }
