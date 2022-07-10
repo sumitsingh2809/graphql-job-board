@@ -94,3 +94,24 @@ export async function deleteJob(id) {
     const { job } = await request(GRAPHQL_URL, query, variables);
     return job;
 }
+
+export async function updateJob(input) {
+    const query = gql`
+        mutation UpdateJobMutation($input: UpdateJobInput!) {
+            job: updateJob(input: $input) {
+                id
+                title
+                description
+                company {
+                    id
+                    name
+                    description
+                }
+            }
+        }
+    `;
+
+    const variables = { input };
+    const { job } = await request(GRAPHQL_URL, query, variables);
+    return job;
+}
