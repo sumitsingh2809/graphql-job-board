@@ -8,6 +8,8 @@ import JobBoard from './components/JobBoard';
 import JobDetail from './components/JobDetail';
 import JobForm from './components/JobForm';
 import NavBar from './components/NavBar';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
     const navigate = useNavigate();
@@ -35,6 +37,7 @@ function App() {
                     <Route exact path="/login" element={<LoginForm onLogin={handleLogin} />} />
                 </Routes>
             </main>
+            <ToastContainer />
         </>
     );
 }

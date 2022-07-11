@@ -1,6 +1,7 @@
 import JobList from './JobList';
 import { getJobs, deleteJob } from '../graphql/queries';
 import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 
 function JobBoard() {
     const [jobs, setJobs] = useState([]);
@@ -13,8 +14,16 @@ function JobBoard() {
     }, []);
 
     const deleteJobHandler = async (id) => {
-        await deleteJob(id);
-        setJobs(jobs.filter((job) => job.id !== id));
+        try {
+            await deleteJob(id);
+            setJobs(jobs.filter((job) => job.id !== id));
+        } catch (err) {
+            console.error(err.response);
+            toast.error(err.response.errors[0].message, {
+                theme: 'dark',
+                autoClose: 1500,
+            });
+        }
     };
 
     if (error) {
