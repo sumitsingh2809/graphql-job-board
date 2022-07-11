@@ -1,4 +1,4 @@
-import { Job, Company } from './db.js';
+import { Job, Company, User } from './db.js';
 
 export const resolvers = {
     Query: {
@@ -8,10 +8,11 @@ export const resolvers = {
     },
 
     Mutation: {
-        createJob: (_root, { input }, context) => {
-            const { auth } = context;
-            if (!auth) throw new Error('Unauthorized');
-            return Job.create(input);
+        createJob: async (_root, { input }, context) => {
+            const { user } = context;
+            if (!user) throw new Error('Unauthorized');
+
+            return Job.create({ ...input, companyId: user.companyId });
         },
         deleteJob: (_root, { id }) => Job.delete(id),
         updateJob: (_root, { input }) => Job.update(input),

@@ -24,45 +24,9 @@
     "description": "We need someone to restart the servers"
   },
   {
-    "id": "5lm7wPOSR2J0XIf1r51ej",
-    "title": "Test Job",
-    "companyId": "wvdB54Gqbdp_NZTXK9Tue",
-    "description": "This is test job"
-  },
-  {
-    "id": "JBK4EJriGvcrvXMsJ6ffF",
-    "title": "Job 1",
-    "companyId": "pVbRRBQtMVw6lUAkj1k43",
-    "description": "Test"
-  },
-  {
-    "id": "kihSTo9FfEt9HSHQ7m_rG",
-    "title": "Job 1",
-    "companyId": "pVbRRBQtMVw6lUAkj1k43",
-    "description": "Test"
-  },
-  {
-    "id": "rrChOaHT9T62UKEsbPuck",
-    "title": "Job 1",
-    "companyId": "pVbRRBQtMVw6lUAkj1k43",
-    "description": "Test"
-  },
-  {
-    "id": "C4VqS5ny5m0rUCCEZIzOv",
-    "title": "Job 1",
-    "companyId": "pVbRRBQtMVw6lUAkj1k43",
-    "description": "Test"
-  },
-  {
-    "id": "l7KzkZ_-ZCSPso9PQzLZj",
-    "title": "Job 1",
-    "companyId": "pVbRRBQtMVw6lUAkj1k43",
-    "description": "Test"
-  },
-  {
-    "id": "Tbfit556tBVqsblJrasEU",
-    "title": "Job 1",
-    "companyId": "pVbRRBQtMVw6lUAkj1k43",
-    "description": "Test"
+    "id": "txTNHRljbxp1PP_Lb4S5X",
+    "title": "QA Tester",
+    "description": "You must be good at finding bugs.",
+    "companyId": "wvdB54Gqbdp_NZTXK9Tue"
   }
 ]
