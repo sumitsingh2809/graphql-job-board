@@ -33,6 +33,6 @@ input CreateJobInput {
 input UpdateJobInput {
     id: ID!
     title: String!
-    companyId: ID!
+    # companyId: ID!
     description: String
 }
