@@ -5,6 +5,17 @@ const GRAPHQL_URL = 'http://localhost:9000/graphql';
 const client = new ApolloClient({
     uri: GRAPHQL_URL,
     cache: new InMemoryCache(),
+    // defaultOptions: {
+    //     query: {
+    //         fetchPolicy: 'cache-first',
+    //     },
+    //     mutate: {
+    //         fetchPolicy: 'network-only',
+    //     },
+    //     watchQuery: {
+    //         fetchPolicy: 'network-only',
+    //     },
+    // },
 });
 
 export async function createJob(input) {
@@ -79,13 +90,17 @@ export async function getJobs() {
                 id
                 title
                 company {
+                    id
                     name
                 }
             }
         }
     `;
 
-    const result = await client.query({ query });
+    const result = await client.query({
+        query,
+        fetchPolicy: 'network-only',
+    });
     return result.data.jobs;
 }
 
