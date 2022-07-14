@@ -18,18 +18,32 @@ const client = new ApolloClient({
     // },
 });
 
+const JOB_QUERY = gql`
+    query JobQuery($id: ID!) {
+        job(id: $id) {
+            id
+            title
+            company {
+                id
+                name
+            }
+            description
+        }
+    }
+`;
+
 export async function createJob(input) {
     const mutation = gql`
         mutation CreateJobMutation($input: CreateJobInput!) {
             job: createJob(input: $input) {
                 id
-                # title
-                # description
-                # company {
-                #     id
-                #     name
-                #     description
-                # }
+                title
+                description
+                company {
+                    id
+                    name
+                    description
+                }
             }
         }
     `;
@@ -37,7 +51,16 @@ export async function createJob(input) {
     const variables = { input };
     const context = { headers: { Authorization: `Bearer ${getAccessToken()}` } };
 
-    const result = await client.mutate({ mutation, variables, context });
+    const result = await client.mutate({
+        mutation,
+        variables,
+        context,
+        update: (cache, result) => {
+            // called after mutation
+            const job = result.data.job;
+            cache.writeQuery({ query: JOB_QUERY, variables: { id: job.id }, data: { job } });
+        },
+    });
     return result.data.job;
 }
 
@@ -62,24 +85,10 @@ export async function getCompany(id) {
 }
 
 export async function getJob(id) {
-    const query = gql`
-        query JobQuery($id: ID!) {
-            job(id: $id) {
-                id
-                title
-                company {
-                    id
-                    name
-                }
-                description
-            }
-        }
-    `;
-
     const variables = { id };
     const {
         data: { job },
-    } = await client.query({ query, variables });
+    } = await client.query({ query: JOB_QUERY, variables });
     return job;
 }
 
