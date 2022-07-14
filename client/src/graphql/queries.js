@@ -1,5 +1,4 @@
 import { ApolloClient, gql, InMemoryCache } from '@apollo/client';
-import { request } from 'graphql-request';
 import { getAccessToken } from '../auth';
 
 const GRAPHQL_URL = 'http://localhost:9000/graphql';
@@ -9,7 +8,7 @@ const client = new ApolloClient({
 });
 
 export async function createJob(input) {
-    const query = gql`
+    const mutation = gql`
         mutation CreateJobMutation($input: CreateJobInput!) {
             job: createJob(input: $input) {
                 id
@@ -25,9 +24,10 @@ export async function createJob(input) {
     `;
 
     const variables = { input };
-    const headers = { Authorization: `Bearer ${getAccessToken()}` };
-    const { job } = await request(GRAPHQL_URL, query, variables, headers);
-    return job;
+    const context = { headers: { Authorization: `Bearer ${getAccessToken()}` } };
+
+    const result = await client.mutate({ mutation, variables, context });
+    return result.data.job;
 }
 
 export async function getCompany(id) {
@@ -90,7 +90,7 @@ export async function getJobs() {
 }
 
 export async function deleteJob(id) {
-    const query = gql`
+    const mutation = gql`
         mutation DeleteJobMutation($id: ID!) {
             job: deleteJob(id: $id) {
                 id
@@ -100,12 +100,14 @@ export async function deleteJob(id) {
     `;
 
     const variables = { id };
-    const { job } = await request(GRAPHQL_URL, query, variables);
-    return job;
+    const context = { headers: { Authorization: `Bearer ${getAccessToken()}` } };
+
+    const result = await client.mutate({ mutation, variables, context });
+    return result.data.job;
 }
 
 export async function updateJob(input) {
-    const query = gql`
+    const mutation = gql`
         mutation UpdateJobMutation($input: UpdateJobInput!) {
             job: updateJob(input: $input) {
                 id
@@ -121,6 +123,8 @@ export async function updateJob(input) {
     `;
 
     const variables = { input };
-    const { job } = await request(GRAPHQL_URL, query, variables);
-    return job;
+    const context = { headers: { Authorization: `Bearer ${getAccessToken()}` } };
+
+    const result = await client.mutate({ mutation, variables, context });
+    return result.data.job;
 }

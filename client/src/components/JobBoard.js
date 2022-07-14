@@ -18,8 +18,8 @@ function JobBoard() {
             await deleteJob(id);
             setJobs(jobs.filter((job) => job.id !== id));
         } catch (err) {
-            console.error(err.response);
-            toast.error(err.response.errors[0].message, {
+            console.error(err.message);
+            toast.error(err.message, {
                 theme: 'dark',
                 autoClose: 1500,
             });

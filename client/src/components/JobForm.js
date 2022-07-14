@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
+import { toast } from 'react-toastify';
 import { createJob } from '../graphql/queries';
 
 function JobForm() {
@@ -9,8 +10,13 @@ function JobForm() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const job = await createJob({ title, description });
-        navigate(`/jobs/${job.id}`);
+        try {
+            const job = await createJob({ title, description });
+            navigate(`/jobs/${job.id}`);
+        } catch (err) {
+            console.error(err);
+            toast.error(err.message, { theme: 'dark', autoClose: 1500 });
+        }
     };
 
     return (
