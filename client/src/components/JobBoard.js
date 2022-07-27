@@ -1,8 +1,8 @@
 import JobList from './JobList';
-import { getJobs, deleteJob, JOBS_QUERY } from '../graphql/queries';
-import { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
-import { useQuery } from '@apollo/client';
+import { useJobs } from '../graphql/hooks';
+// import { getJobs, deleteJob } from '../graphql/queries';
+// import { useEffect, useState } from 'react';
+// import { toast } from 'react-toastify';
 
 function JobBoard() {
     // const [jobs, setJobs] = useState([]);
@@ -14,7 +14,7 @@ function JobBoard() {
     //         .catch((err) => setError(true));
     // }, []);
 
-    const { data, loading, error } = useQuery(JOBS_QUERY, { fetchPolicy: 'network-only' });
+    const { jobs, loading, error } = useJobs();
     const deleteJobHandler = async (id) => {
         console.log('delete job handler called');
         // try {
@@ -36,7 +36,6 @@ function JobBoard() {
         return <p>Sorry Something went wrong</p>;
     }
 
-    const { jobs } = data;
     return (
         <div>
             <h1 className="title">Job Board</h1>
