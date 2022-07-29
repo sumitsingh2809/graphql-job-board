@@ -52,6 +52,20 @@ export const JOBS_QUERY = gql`
     }
 `;
 
+export const COMPANY_QUERY = gql`
+    query CompanyQuery($id: ID!) {
+        company(id: $id) {
+            id
+            name
+            description
+            jobs {
+                id
+                title
+            }
+        }
+    }
+`;
+
 export async function createJob(input) {
     const mutation = gql`
         mutation CreateJobMutation($input: CreateJobInput!) {
@@ -79,22 +93,8 @@ export async function createJob(input) {
 }
 
 export async function getCompany(id) {
-    const query = gql`
-        query CompanyQuery($id: ID!) {
-            company(id: $id) {
-                id
-                name
-                description
-                jobs {
-                    id
-                    title
-                }
-            }
-        }
-    `;
-
     const variables = { id };
-    const result = await client.query({ query, variables });
+    const result = await client.query({ query: COMPANY_QUERY, variables });
     return result.data.company;
 }
 
